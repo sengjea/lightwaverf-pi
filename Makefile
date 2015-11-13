@@ -10,10 +10,16 @@ all: lib samples
 
 lib: lib$(NAME).so.$(VERSION)
  
-samples: send receive
+samples: send receive send2 mqttsend
  
 send: lib$(NAME).so
 	$(CC) send.c -o $@ -L. -l$(NAME) -lwiringPi
+ 
+send2: lib$(NAME).so
+	$(CC) send2.c -o $@ -L. -l$(NAME) -lwiringPi
+
+mqttsend: lib$(NAME).so
+	$(CC) mqttsend.c -o $@ -L. -l$(NAME) -lwiringPi -lpaho-mqtt3c
  
 receive: lib$(NAME).so
 	$(CC) receive.c -o $@ -L. -l$(NAME) -lwiringPi
@@ -26,7 +32,7 @@ lib$(NAME).so.$(VERSION): $(NAME).o
 	$(CC) -shared -Wl,-soname,lib$(NAME).so.$(MAJOR) $^ -o $@
  
 clean:
-	$(RM) send receive *.o *.so*
+	$(RM) send send2 receive *.o *.so*
 
 install: lib$(NAME).so
 	install -m 0644 lib$(NAME).so.$(VERSION) $(PREFIX)/lib
