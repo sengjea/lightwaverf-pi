@@ -187,6 +187,7 @@ int main(int argc, char* argv[])
     for(;;) {
         sleep(10);
         if (!connected) {
+            log_msg("Reconnecting ... ");
             if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
             {
                 log_msg("Failed to reconnect, return code %d\n", rc);
