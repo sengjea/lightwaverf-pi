@@ -12,19 +12,19 @@ lib: lib$(NAME).so.$(VERSION)
  
 samples: send receive send2 mqttsend lwrfmqtt
  
-send: lib$(NAME).so
+send: lib$(NAME).so send.c
 	$(CC) send.c -o $@ -L. -l$(NAME) -lwiringPi
  
-send2: lib$(NAME).so
+send2: lib$(NAME).so send2.c
 	$(CC) send2.c -o $@ -L. -l$(NAME) -lwiringPi
 
-mqttsend: lib$(NAME).so
+mqttsend: lib$(NAME).so mqttsend.c
 	$(CC) mqttsend.c -o $@ -L. -l$(NAME) -lwiringPi -lpaho-mqtt3c
  
-lwrfmqtt: lib$(NAME).so
+lwrfmqtt: lib$(NAME).so lwrfmqtt.c
 	$(CC) lwrfmqtt.c -o $@ -L. -l$(NAME) -lwiringPi -lpaho-mqtt3c
  
-receive: lib$(NAME).so
+receive: lib$(NAME).so receive.c
 	$(CC) receive.c -o $@ -L. -l$(NAME) -lwiringPi
 
 lib$(NAME).so: lib$(NAME).so.$(VERSION)
