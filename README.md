@@ -12,7 +12,7 @@ This code is a port of the excellent [lightwaverf arduino library](https://githu
 
 	sudo apt-get update
   	sudo apt-get install wiringpi
-  	sudo apt-get install mosquitto-client
+  	sudo apt-get install mosquitto-clients
 	git clone http://git.eclipse.org/gitroot/paho/org.eclipse.paho.mqtt.c.git
 	cd org.eclipse.paho.mqtt.c
   	make
