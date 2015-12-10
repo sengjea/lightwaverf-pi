@@ -22,16 +22,25 @@ This code is a port of the excellent [lightwaverf arduino library](https://githu
   	cd lightwaverf-pi
 	make
   	sudo make install
+  	
+To test manually start:
+
+	sudo ./mqttsend
+
+To start via /etc/init.d service:
+
   	sudo service lwrfd start
 
+To make service run at startup:
+
+  	sudo update-rc.d lwrfd defaults
+  	
 To view log:
 
   	tail /var/log/daemon.log -f
 
 
-To make service run at startup:
 
-  	sudo update-rc.d lwrfd defaults
 
 Once installed lwrf plugs can be controlled by publishing to 'lwrf' MQTT topic.
 
