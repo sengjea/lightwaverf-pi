@@ -10,7 +10,9 @@
 #include <stdarg.h>
 
 #define ADDRESS     "tcp://localhost:1883"
-#define CLIENTID    "emonpi"
+#define USER        "emonpi"
+#define PASSWORD    "emonpimqtt2016"
+#define CLIENTID    "lwrf"
 #define TOPIC       "lwrf"
 #define QOS         1
 #define TIMEOUT     10000L
@@ -171,6 +173,8 @@ int main(int argc, char* argv[])
         MQTTCLIENT_PERSISTENCE_NONE, NULL);
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
+    conn_opts.username = USER;
+    conn_opts.password = PASSWORD;
 
     MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, NULL);
 
