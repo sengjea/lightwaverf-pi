@@ -5,7 +5,9 @@
 #include "lightwaverf.h"
 
 #define ADDRESS     "tcp://localhost:1883"
-#define CLIENTID    "emonpi"
+#define USER        "emonpi"
+#define PASSWORD    "emonpimqtt2016"
+#define CLIENTID    "lwrf"
 #define TOPIC       "lwrf"
 #define QOS         1
 #define TIMEOUT     10000L
@@ -66,6 +68,8 @@ int main(int argc, char* argv[])
 {
     MQTTClient client;
     MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
+    conn_opts.username = "emonpi";
+    conn_opts.password = "emonpimqtt2016";
     int rc;
     int ch;
 
