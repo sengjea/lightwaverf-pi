@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 
     MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, delivered);
 
-    if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
+    if ((rc = MQTTClient_connect(client, conn_opts)) != MQTTCLIENT_SUCCESS)
     {
         printf("Failed to connect, return code %d\n", rc);
         exit(-1);       
