@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
     lw_setup();
 
     MQTTClient_create(&client, ADDRESS, CLIENTID,
-        MQTTCLIENT_PERSISTENCE_NONE, NULL);
+    MQTTCLIENT_PERSISTENCE_NONE, NULL);
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
     conn_opts.username = USER;
@@ -82,7 +82,7 @@ int main(int argc, char* argv[])
 
     MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, delivered);
 
-    if ((rc = MQTTClient_connect(client, conn_opts)) != MQTTCLIENT_SUCCESS)
+    if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
     {
         printf("Failed to connect, return code %d\n", rc);
         exit(-1);       
