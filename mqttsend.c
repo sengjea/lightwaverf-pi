@@ -68,8 +68,6 @@ int main(int argc, char* argv[])
 {
     MQTTClient client;
     MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
-    conn_opts.username = "emonpi";
-    conn_opts.password = "emonpimqtt2016";
     int rc;
     int ch;
 
@@ -79,6 +77,8 @@ int main(int argc, char* argv[])
         MQTTCLIENT_PERSISTENCE_NONE, NULL);
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
+    conn_opts.username = USER;
+    conn_opts.password = PASSWORD;
 
     MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, delivered);
 
