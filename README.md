@@ -8,6 +8,20 @@ For more details see [OOK section of emonPi Wiki](http://wiki.openenergymonitor.
 This code is a port of the excellent [lightwaverf arduino library](https://github.com/lawrie/LightwaveRF) written by Lawrie Griffiths to the Raspberry Pi. It utilises the [WiringPi](http://wiringpi.com/) library to do most of the GPIO work. 
 
 
+# MQTT Settings
+
+Before compile & install MQTT server and authentications details can be set in [`lwrfmqtt.c` L12](https://github.com/openenergymonitor/lightwaverf-pi/blob/master/lwrfmqtt.c#L12)
+
+```
+#define ADDRESS     "tcp://localhost:1883"
+#define USER        "emonpi"
+#define PASSWORD    "emonpimqtt2016"
+#define CLIENTID    "lwrf"
+#define TOPIC       "lwrf"
+#define QOS         1
+#define TIMEOUT     10000L
+```
+
 # To Install LWRF MQTT on Raspberry Pi 
 
 	sudo apt-get update
