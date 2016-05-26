@@ -184,7 +184,7 @@ int main(int argc, char* argv[])
         exit(-1);       
     }
     connected = TRUE;
-    log_msg("Subscribing to topic %s for client %s using QoS %d\n"
+    log_msg("Subscribing to MQTT topic %s for client %s using QoS %d\n"
            , TOPIC, CLIENTID, QOS);
     MQTTClient_subscribe(client, TOPIC, QOS);
 
@@ -194,7 +194,7 @@ int main(int argc, char* argv[])
             log_msg("Reconnecting ... ");
             if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
             {
-                log_msg("Failed to reconnect, return code %d\n", rc);
+                log_msg("Failed to reconnect to MQTT, return code %d\n", rc);
                 log_msg("Subscribing to topic %s for client %s using QoS %d\n"
                        , TOPIC, CLIENTID, QOS);
                 MQTTClient_subscribe(client, TOPIC, QOS);
