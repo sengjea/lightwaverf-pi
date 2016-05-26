@@ -180,7 +180,7 @@ int main(int argc, char* argv[])
 
     if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
     {
-        log_msg("Failed to connect, return code %d\n", rc);
+        log_msg("Failed to connect to MQTT, return code %d\n", rc);
         exit(-1);       
     }
     connected = TRUE;
