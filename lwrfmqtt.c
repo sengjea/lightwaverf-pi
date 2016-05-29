@@ -174,7 +174,7 @@ int main(int argc, char* argv[])
     MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, NULL);
 
     for(;;) {
-	    if (!connected) 
+        if (!connected) 
         {
             if (conn_count++ == 0) log_msg("Connecting to MQTT");
             else log_msg("Reconnecting ... ");
