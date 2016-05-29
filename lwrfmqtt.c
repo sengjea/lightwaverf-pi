@@ -27,7 +27,7 @@ byte id[] = {0x6f,0xed,0xbb,0xdb,0x7b,0xee};
 
 // Log an information message to the daemon log or console
 static void log_msg(char *msg, ...)
-{ 
+{
   char str[100];
   va_list args;
   va_start( args, msg );
@@ -165,12 +165,11 @@ int main(int argc, char* argv[])
 
     MQTTClient_connectOptions conn_opts = MQTTClient_connectOptions_initializer;
     int rc;
-    int ch;
+    int conn_count = 0;
 
     lw_setup();
 
-    MQTTClient_create(&client, ADDRESS, CLIENTID,
-        MQTTCLIENT_PERSISTENCE_NONE, NULL);
+    MQTTClient_create(&client, ADDRESS, CLIENTID, MQTTCLIENT_PERSISTENCE_NONE, NULL);
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;
     conn_opts.username = USER;
@@ -178,28 +177,25 @@ int main(int argc, char* argv[])
 
     MQTTClient_setCallbacks(client, NULL, connlost, msgarrvd, NULL);
 
-    if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
-    {
-        log_msg("Failed to connect to MQTT, return code %d\n", rc);
-        exit(-1);       
-    }
-    connected = TRUE;
-    log_msg("Subscribing to MQTT topic %s for client %s using QoS %d\n"
-           , TOPIC, CLIENTID, QOS);
-    MQTTClient_subscribe(client, TOPIC, QOS);
-
     for(;;) {
-        sleep(10);
-        if (!connected) {
-            log_msg("Reconnecting ... ");
+        if (!connected)
+        {
+            if (conn_count++ == 0) log_msg("Connecting to MQTT");
+            else log_msg("Reconnecting to MQTT ... ");
+
             if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
             {
-                log_msg("Failed to reconnect to MQTT, return code %d\n", rc);
-                log_msg("Subscribing to topic %s for client %s using QoS %d\n"
-                       , TOPIC, CLIENTID, QOS);
+                log_msg("Failed to connect to MQTT, return code %d\n", rc);
+            }
+            else
+            {
+                connected = TRUE;
+                log_msg("Subscribing to MQTT topic %s for client %s using QoS %d\n"
+                           , TOPIC, CLIENTID, QOS);
                 MQTTClient_subscribe(client, TOPIC, QOS);
-            } else connected = TRUE;
+            }
         }
+        sleep(10);
     }
 
     MQTTClient_disconnect(client, 10000);
