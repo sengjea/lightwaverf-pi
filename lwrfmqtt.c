@@ -177,20 +177,20 @@ int main(int argc, char* argv[])
         if (!connected) 
 		{
             if (conn_count++ == 0) log_msg("Connecting to MQTT");
-			else log_msg("Reconnecting ... ");
+		    else log_msg("Reconnecting ... ");
             if ((rc = MQTTClient_connect(client, &conn_opts)) != MQTTCLIENT_SUCCESS)
             {
                 log_msg("Failed to connect, return code %d\n", rc);
             } 
-			else 
-			{
-				connected = TRUE;
-				log_msg("Subscribing to topic %s for client %s using QoS %d\n"
+		    else 
+		    {
+			    connected = TRUE;
+			    log_msg("Subscribing to topic %s for client %s using QoS %d\n"
                        , TOPIC, CLIENTID, QOS);
                 MQTTClient_subscribe(client, TOPIC, QOS);
-			}
+		    }
         }
-		sleep(10);
+        sleep(10);
     }
 
     MQTTClient_disconnect(client, 10000);
