@@ -47,6 +47,10 @@ int msgarrvd(void *context, char *topicName, int topicLen, MQTTClient_message *m
     int level = 0;
     if (token != NULL) {
         cmd = atoi(token);
+        token = strtok(NULL, " ");
+        if (token != NULL) {
+            level = atoi(token);
+        } 
     }
     printf("Sending command %d on channel %d, level %d\n", cmd, channel, level);
 
