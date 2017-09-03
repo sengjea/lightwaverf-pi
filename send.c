@@ -1,30 +1,21 @@
 #include "lightwaverf.h"
 #include <stdlib.h>
 
-byte on[] = {0xf6,0xf6,0xee,0xee,0x6f,0xed,0xbb,0xdb,0x7b,0xee};
-byte off[] = {0xf6,0xf6,0xee,0xf6,0x6f,0xed,0xbb,0xdb,0x7b,0xee};
-
+byte id[] = {0x6f,0xed,0xbb,0xdb,0x7b,0xee};
 
 int main(int argc, char *argv[]) {
 
+        if (argc != 3 && argc != 4) {
+		printf("Usage send2 channel command [level]\n");
+		return 1;
+	}
+
 	lw_setup();
 
-	//int unitCode = atoi(argv[1]);
-    	int command  = atoi(argv[1]);
-    
-	printf("sending command[%i]\n", command);
-    
-    switch(command) {
-        case 1:
-            lw_send(on);
-            break;
-        case 0:
-	    lw_send(off);
-            break;
-        default:
-            printf("command[%i] is unsupported\n", command);
-            return -1;
-    }
-	return 0;
+    	int channel  = atoi(argv[1]);
+        int cmd = atoi(argv[2]);
+        int level = (argc == 4 ? atoi(argv[3]) : 0);
 
+        lw_cmd(level, channel, cmd, id);
+	return 0;
 }

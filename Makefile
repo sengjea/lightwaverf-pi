@@ -1,4 +1,4 @@
-CFLAGS := -fPIC -O3 -g -Wall -Werror
+CFLAGS := -v -fPIC -O3 -g -Wall -Werror
 CC := gcc
 MAJOR := 0
 MINOR := 1
@@ -6,18 +6,15 @@ NAME := lightwaverf
 VERSION := $(MAJOR).$(MINOR)
 PREFIX := /usr/local
 
-all: lib samples
+all: lwrfsend
 
 lib: lib$(NAME).so.$(VERSION)
  
 samples: send receive send2 mqttsend lwrfmqtt
  
-send: lib$(NAME).so send.c
-	$(CC) send.c -o $@ -L. -l$(NAME) -lwiringPi
+lwrfsend: $(NAME).c send.c
+	$(CC) $(CFLAGS) $^ -o $@ -I. -lwiringPi
  
-send2: lib$(NAME).so send2.c
-	$(CC) send2.c -o $@ -L. -l$(NAME) -lwiringPi
-
 mqttsend: lib$(NAME).so mqttsend.c
 	$(CC) mqttsend.c -o $@ -L. -l$(NAME) -lwiringPi -lpaho-mqtt3c
  
